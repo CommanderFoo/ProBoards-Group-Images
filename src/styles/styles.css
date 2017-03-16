@@ -1,0 +1,20 @@
+.group-img-selectable {
+
+	cursor: pointer;
+	opacity: 0.5;
+
+}
+
+.group-img-selected {
+
+	opacity: 1;
+
+}
+
+.group-img-item {
+
+	display: block;
+	text-align: center;
+	margin-top: 5px;
+
+}
