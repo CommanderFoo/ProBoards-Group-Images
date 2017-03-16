@@ -63,11 +63,28 @@ var Group_Images = function () {
 			}
 		}
 	}, {
+		key: "in_group",
+		value: function in_group($row) {
+			var $td = $row.find("td:first");
+			var a = $td.find("a.leave-group, a.remove-from-group");
+
+			if (a.length > 0 && a.css("display") != "none") {
+				return true;
+			}
+
+			return false;
+		}
+	}, {
 		key: "click_img",
 		value: function click_img() {
 			var $img = $(this);
 			var key = pb.plugin.key(Group_Images.PLUGIN_KEY);
 			var $row = $img.parent().parent();
+
+			if (!pb.data("user").is_staff && !Group_Images.in_group($row)) {
+				return;
+			}
+
 			var grp_id = $row.attr("id").split("-")[1];
 			var member = pb.data("page").member;
 			var data = key.get(member.id);

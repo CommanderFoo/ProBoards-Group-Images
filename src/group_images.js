@@ -59,10 +59,26 @@ class Group_Images {
 		}
 	}
 
+	static in_group($row){
+		let $td = $row.find("td:first");
+		let a = $td.find("a.leave-group, a.remove-from-group");
+
+		if(a.length > 0 && a.css("display") != "none"){
+			return true;
+		}
+
+		return false;
+	}
+
 	static click_img(){
 		let $img = $(this);
 		let key = pb.plugin.key(Group_Images.PLUGIN_KEY);
 		let $row = $img.parent().parent();
+
+		if(!pb.data("user").is_staff && !Group_Images.in_group($row)){
+			return;
+		}
+
 		let grp_id = $row.attr("id").split("-")[1];
 		let member = pb.data("page").member;
 		let data = key.get(member.id);
